@@ -19,7 +19,7 @@ List<GameDto> games = [
         69.99f,
         new DateOnly(2024, 2, 29)),
     new (
-        2, 
+        3, 
         "Astro Bot", 
         "Platformer", 
         59.99f,
@@ -51,7 +51,6 @@ app.MapPost("/games", (CreateGameDto newGame) =>
 });
 
 // PUT /games/{id}
-
 app.MapPut("/games/{id}",(int id, UpdateGameDto updatedGame) =>
 {
     var index = games.FindIndex(game => game.Id == id);
@@ -65,5 +64,15 @@ app.MapPut("/games/{id}",(int id, UpdateGameDto updatedGame) =>
 
     return Results.NoContent();
 });
+
+// DELETE /games/{id}
+
+app.MapDelete("/games/{id}", (int id) =>
+{
+    games.RemoveAll(games => games.Id == id);
+
+    return Results.NoContent();
+});
+
 
 app.Run();
