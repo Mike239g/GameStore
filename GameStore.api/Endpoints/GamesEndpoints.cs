@@ -29,6 +29,7 @@ public static class GameEndpoints
     public static void MapGamesEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/games");
+        
         // GET /games
         group.MapGet("/", () => games);
 
@@ -86,6 +87,13 @@ public static class GameEndpoints
         {
             games.RemoveAll(games => games.Id == id);
 
+            return Results.NoContent();
+        });
+
+        // DELETE all games
+        group.MapDelete("/", () => 
+        {
+            games.Clear();
             return Results.NoContent();
         });
 
